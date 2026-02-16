@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>for my love ✨</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Helvetica Neue', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(145deg, #ffdde1 0%, #f9c9e2 40%, #ffe4f3 100%);
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+        }
+
+        /* main card / container */
+        .book {
+            width: 100%;
+            max-width: 500px;  /* perfect for both mobile and pc */
+            background: rgba(255, 248, 250, 0.8);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 48px 48px 42px 42px;
+            box-shadow: 0 30px 40px rgba(240, 128, 164, 0.25),
+                        0 0 0 2px #fff9fc inset,
+                        0 0 0 4px rgba(255, 220, 240, 0.6) inset;
+            padding: 24px 20px 32px 20px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.7);
+        }
+
+        /* heart decoration */
+        .heart-line {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            font-size: 24px;
+            color: #ff90b5;
+            text-shadow: 0 3px 6px #ffb6d1;
+            margin-bottom: 8px;
+            letter-spacing: 6px;
+        }
+
+        /* pages container */
+        .pages {
+            position: relative;
+            min-height: 460px;  /* flexible, grows with content */
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* each page is a separate card with transition */
+        .page {
+            display: none;
+            opacity: 0;
+            transform: scale(0.96);
+            transition: opacity 0.4s ease, transform 0.3s ease;
+            padding: 12px 8px 8px 8px;
+        }
+
+        .page.active {
+            display: block;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* big love title */
+        .sweet-title {
+            font-size: 2.1rem;
+            font-weight: 600;
+            background: linear-gradient(130deg, #d44e7c, #ff8daf, #f75d9e);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-align: center;
+            line-height: 1.3;
+            margin: 15px 0 8px;
+            text-shadow: 0 0 8px #ffc1d6;
+        }
+
+        .cute-message {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 42px;
+            padding: 24px 22px;
+            font-size: 1.2rem;
+            line-height: 1.65;
+            color: #a13e5f;
+            box-shadow: 0 10px 20px rgba(255, 148, 184, 0.25), 0 4px 0 #ffeef4 inset;
+            border: 1px solid white;
+            text-align: left;
+            word-break: break-word;
+            margin: 16px 0 10px;
+        }
+
+        .cute-message i {
+            color: #f76596;
+            font-style: italic;
+            background: #fff0f7;
+            padding: 2px 8px;
+            border-radius: 30px;
+            display: inline-block;
+            margin: 4px 0;
+        }
+
+        .signature {
+            font-family: 'Brush Script MT', cursive, sans-serif;
+            font-size: 2.3rem;
+            text-align: right;
+            color: #ff80a5;
+            margin-top: 10px;
+            text-shadow: 0 2px 5px #ffb1c7;
+        }
+
+        .reasons {
+            list-style: none;
+            margin: 18px 0;
+        }
+
+        .reasons li {
+            background: rgba(255, 240, 245, 0.8);
+            margin: 12px 0;
+            padding: 14px 20px;
+            border-radius: 60px;
+            font-size: 1.15rem;
+            color: #ad3f64;
+            border: 1px solid white;
+            box-shadow: 0 4px 0 #ffe2ed;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            backdrop-filter: blur(4px);
+        }
+
+        .reasons li span {
+            font-size: 1.8rem;
+            filter: drop-shadow(0 2px 2px #f9a8c3);
+        }
+
+        .interactive-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 24px;
+            gap: 12px;
+        }
+
+        .nav-btn {
+            background: #ffb3c6;
+            border: none;
+            border-radius: 60px;
+            padding: 14px 24px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #631f3a;
+            box-shadow: 0 7px 0 #e47ca1, 0 4px 15px rgba(255, 126, 166, 0.5);
+            cursor: pointer;
+            transition: 0.07s linear;
+            border: 1px solid white;
+            flex: 1;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            background: rgba(255, 200, 220, 0.9);
+            letter-spacing: 0.5px;
+        }
+
+        .nav-btn:active {
+            transform: translateY(6px);
+            box-shadow: 0 2px 0 #e47ca1, 0 4px 12px #ffb8cf;
+        }
+
+        /* disabled button (hidden) */
+        .nav-btn.hidden {
+            visibility: hidden;
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        .heart-bullet {
+            font-size: 1.6rem;
+            margin-right: 8px;
+        }
+
+        .page-indicator {
+            text-align: center;
+            color: #b15979;
+            font-weight: 500;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 60px;
+            padding: 10px 16px;
+            display: inline-block;
+            margin: 8px auto 0;
+            backdrop-filter: blur(3px);
+            border: 1px solid #fff3f8;
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 20px;
+            color: #f27fa5;
+            font-size: 1rem;
+        }
+
+        /* extra sparkles */
+        .sparkle {
+            position: relative;
+        }
+
+        .sparkle::after {
+            content: " ✦ ✧ ✦";
+            font-size: 1rem;
+            opacity: 0.7;
+        }
+
+        @media (max-width: 450px) {
+            .sweet-title {
+                font-size: 1.9rem;
+            }
+            .cute-message {
+                font-size: 1rem;
+                padding: 20px 16px;
+            }
+            .reasons li {
+                font-size: 1rem;
+                padding: 12px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="book">
+        <!-- top little hearts -->
+        <div class="heart-line">
+            <span>❤️</span> <span>🌸</span> <span>❤️</span> <span>🌸</span> <span>❤️</span>
+        </div>
+
+        <!-- pages container -->
+        <div class="pages">
+            <!-- PAGE 1 – hi love intro -->
+            <div id="page1" class="page active">
+                <div class="sweet-title" style="margin-top: 25px;">
+                    🩷 hi love 🩷
+                </div>
+                <div class="cute-message" style="text-align: center; font-size: 1.8rem; padding: 30px 15px;">
+                    ito nanaman ako <br> gumawa ng simple na program
+                    <div style="font-size: 2rem; margin: 10px 0;">🌸💻🌸</div>
+                    <div style="font-size: 1.3rem; font-weight: 300;">containing the reasons</div>
+                    <div style="font-size: 1.9rem; background: linear-gradient(130deg,#f66b9d,#ff145e); -webkit-background-clip:text; background-clip:text; color:transparent; margin-top: 5px;">why i love you so much</div>
+                </div>
+                <div style="text-align: center; margin: 15px 0 5px;">
+                    <span style="font-size: 2.5rem;">🥺👉👈</span>
+                </div>
+            </div>
+
+            <!-- PAGE 2 – the sweet long message -->
+            <div id="page2" class="page">
+                <div class="cute-message" style="font-size: 1.1rem; padding: 22px;">
+                    <span style="font-size: 2rem; display: block; text-align: center; margin-bottom: 5px;">💌</span>
+                    <span style="font-weight: 600; font-size: 1.4rem; color:#c13462;">I love you</span> because you’re so <i>sweet</i> and <i>mabait</i>, and you don’t even realize how much your smile makes my day better. <br><br>
+                    You’re cute and <i>maganda</i> in the most natural way, but what makes me love you more is how <strong style="color:#bc4270;">independent and strong</strong> you are. I admire how you handle things on your own and still stay kind and soft. <br><br>
+                    When I’m in front of you, I just feel lucky, because you’re not just beautiful outside you’re even more beautiful inside 
+                    <span style="display: inline-block; background: #ffdbe8; border-radius: 30px; padding: 3px 12px; margin: 5px 0;">(masungit ngalang minsan hehe)</span> 
+                    <br><br>
+                    <span style="font-size: 2rem; text-align: center; display: block;">❤️ i love you ❤️</span>
+                </div>
+                <!-- small cute doodle -->
+                <div style="display: flex; justify-content: center; gap: 8px; font-size: 1.8rem; margin: 5px 0;">🥰💖🥰</div>
+            </div>
+
+            <!-- PAGE 3 – stay tuned + reasons preview -->
+            <div id="page3" class="page">
+                <div class="sweet-title" style="font-size: 2rem; margin-bottom: 0;">stay tune love</div>
+                <div class="cute-message" style="background: #ffeef5;">
+                    <ul class="reasons">
+                        <li><span>🌸</span> your smile that heals my soul</li>
+                        <li><span>🌟</span> the way you're strong & independent</li>
+                        <li><span>💞</span> your lambing (Kahit minsan masungit! hehe <3)</li>
+                        <li><span>☁️</span> your genuine kindness</li>
+                    </ul>
+                    <div style="font-size: 1.5rem; font-weight: 600; color:#e46b94; text-align: center; ">
+                        a lot of reasons to go ✨
+                    </div>
+                    <div style="font-size: 2rem; text-align: center; margin: 15px 0 5px;">i love you.</div>
+                    <div style="text-align: right; font-size: 1.2rem; opacity: 0.8;">— your programmer</div>
+                </div>
+                <!-- extra sweet note: "more reasons coming soon" -->
+                <div style="background: #ffe1f0; border-radius: 50px; padding: 12px; margin-top: 12px; text-align: center; border: 1px dashed #f59abc;">
+                    <span style="color: #a13863;">more reasons on the next update 💾</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- interactive navigation + counter -->
+        <div class="interactive-buttons">
+            <button id="prevBtn" class="nav-btn hidden" onclick="changePage(-1)">◀  prev</button>
+            <button id="nextBtn" class="nav-btn" onclick="changePage(1)">next  ▶</button>
+        </div>
+
+        <!-- page indicator (sweet) -->
+        <div id="pageIndicator" class="page-indicator">
+            page 1 / 3 🩷
+        </div>
+
+        <!-- tiny cute footer -->
+        <div class="footer-note sparkle">
+            ✨ for my love, with all my heart ✨
+        </div>
+    </div>
+
+    <script>
+        let currentPage = 1;
+        const totalPages = 3;
+
+        const page1 = document.getElementById('page1');
+        const page2 = document.getElementById('page2');
+        const page3 = document.getElementById('page3');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const indicator = document.getElementById('pageIndicator');
+
+        function updatePages() {
+            // hide all pages
+            page1.classList.remove('active');
+            page2.classList.remove('active');
+            page3.classList.remove('active');
+
+            // show current
+            if (currentPage === 1) {
+                page1.classList.add('active');
+                indicator.innerText = '💗 pahina 1 / 3  💗';
+            } else if (currentPage === 2) {
+                page2.classList.add('active');
+                indicator.innerText = '💖 pahina 2 / 3  💖';
+            } else if (currentPage === 3) {
+                page3.classList.add('active');
+                indicator.innerText = '💘 pahina 3 / 3  💘';
+            }
+
+            // handle button visibility
+            if (currentPage === 1) {
+                prevBtn.classList.add('hidden');
+                // next is visible
+                nextBtn.classList.remove('hidden');
+            } else if (currentPage === totalPages) {
+                nextBtn.classList.add('hidden');
+                prevBtn.classList.remove('hidden');
+            } else {
+                prevBtn.classList.remove('hidden');
+                nextBtn.classList.remove('hidden');
+            }
+        }
+
+        window.changePage = function(direction) {
+            const newPage = currentPage + direction;
+            if (newPage >= 1 && newPage <= totalPages) {
+                currentPage = newPage;
+                updatePages();
+            }
+        }
+
+        // optional: add a tiny swipe simulation? but click is fine.
+        // Also we can preload small interactive hearts
+
+        // Initialize first page
+        updatePages();
+
+        // bonus: generate floating soft sparkles (optional, but sweet)
+        function createExtraSparkle() {
+            const body = document.body;
+            const sparkleDiv = document.createElement('div');
+            sparkleDiv.style.position = 'fixed';
+            sparkleDiv.style.pointerEvents = 'none';
+            sparkleDiv.style.zIndex = '10';
+            sparkleDiv.style.fontSize = '20px';
+            sparkleDiv.style.left = Math.random() * 100 + '%';
+            sparkleDiv.style.top = Math.random() * 100 + '%';
+            sparkleDiv.style.opacity = '0.3';
+            sparkleDiv.style.animation = 'float 6s infinite';
+            sparkleDiv.innerText = '✨';
+            body.appendChild(sparkleDiv);
+        }
+        // add a couple sparkles (but not too many)
+        for(let i=0; i<4; i++){ 
+            // only if you want them, but not necessary
+        }
+    </script>
+
+    <!-- tiny floating animation style -->
+    <style>
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        /* extra hidden sparkles won't disturb */
+        .book {
+            position: relative;
+            z-index: 5;
+        }
+        /* accessibility tap */
+        .nav-btn {
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+    </style>
+
+    <!-- small extra sweet interactive: click on heart anywhere shows hidden message (just for fun) -->
+    <div style="display: none;">hidden love</div>
+    <script>
+        // add little hidden reaction when you tap the heart line (Easter egg)
+        document.querySelector('.heart-line').addEventListener('click', function() {
+            const msg = document.createElement('div');
+            msg.innerText = '💓 love ko 💓';
+            msg.style.position = 'fixed';
+            msg.style.top = '50%';
+            msg.style.left = '50%';
+            msg.style.transform = 'translate(-50%, -50%)';
+            msg.style.background = '#ffd9ec';
+            msg.style.padding = '20px 35px';
+            msg.style.borderRadius = '80px';
+            msg.style.fontSize = '2rem';
+            msg.style.boxShadow = '0 10px 30px hotpink';
+            msg.style.zIndex = '999';
+            msg.style.border = '4px solid white';
+            msg.style.fontWeight = 'bold';
+            msg.style.color = '#b32e5e';
+            document.body.appendChild(msg);
+            setTimeout(() => { msg.remove(); }, 1500);
+        });
+    </script>
+</body>
+</html>
